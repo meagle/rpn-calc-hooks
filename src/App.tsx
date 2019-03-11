@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const CalcContext = React.createContext(0);
+
 class App extends Component {
   render() {
     return (
