@@ -1,3 +1,7 @@
+# RPN Calculator using React Hooks
+
+This is an sample project to experiment with React Hooks.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
