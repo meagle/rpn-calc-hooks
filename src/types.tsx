@@ -19,7 +19,7 @@ export type CalcKey = OperandCalcKey | OperatorCalcKey;
 
 export type Stack = number[];
 
-export type CalcKeyMap = {[key: string]: CalcKey};
+export type CalcKeyMap = Partial<{[key: string]: CalcKey}>;
 
 export type CalcState = {
   stack: Stack;
@@ -55,9 +55,15 @@ export type RegisterKeyAction = {
   key: CalcKey;
 };
 
+export type UnregisterKeyAction = {
+  type: 'UNREGISTER_KEY';
+  keyLabel: string;
+};
+
 export type Action =
   | UserNumericInputAction
   | UserExpressionInputAction
   | AddToStackAction
   | RemoveStackAction
-  | RegisterKeyAction;
+  | RegisterKeyAction
+  | UnregisterKeyAction;

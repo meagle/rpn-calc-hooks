@@ -26,4 +26,12 @@ export const sendKey = (key: CalcKey, userInput?: string): Action => {
   }
 };
 
-// TODO: add registerKey and unregisterKey actions
+export const registerKey = (key: CalcKey): Action => ({
+  type: 'REGISTER_KEY',
+  key,
+});
+
+export const unregisterKey = (keyLabel: string): Action => ({
+  type: 'UNREGISTER_KEY',
+  keyLabel,
+});

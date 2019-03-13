@@ -1,4 +1,12 @@
-import {addInputToStack, removeFromStack, sendKey} from './actions';
+import {CalcKey} from '../types';
+
+import {
+  addInputToStack,
+  removeFromStack,
+  sendKey,
+  registerKey,
+  unregisterKey,
+} from './actions';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
 
 test('Sends an operand to the stack', () => {
@@ -42,5 +50,28 @@ test('Removes from the stack when there is no current input', () => {
     type: 'REMOVE_FROM_STACK',
   };
   const actual = removeFromStack();
+  expect(actual).toEqual(expected);
+});
+
+test('Register a key', () => {
+  const key: CalcKey = {
+    type: 'OPERAND',
+    keyLabel: '1',
+    keyValue: '1',
+  };
+  const expected = {
+    type: 'REGISTER_KEY',
+    key,
+  };
+  const actual = registerKey(key);
+  expect(actual).toEqual(expected);
+});
+
+test('Unregister a key', () => {
+  const expected = {
+    type: 'UNREGISTER_KEY',
+    keyLabel: '1',
+  };
+  const actual = unregisterKey('1');
   expect(actual).toEqual(expected);
 });

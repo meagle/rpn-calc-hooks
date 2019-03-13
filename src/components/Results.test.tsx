@@ -1,13 +1,13 @@
 import React from 'react';
 import {render, cleanup} from 'react-testing-library';
 import Results from './Results';
-import {Provider} from '../util/context';
+import {CalculatorContext} from '../util/context';
 
 afterEach(cleanup);
 
 test('Results renders', () => {
-  const {container, getByText, debug} = render(
-    <Provider
+  const {getByText} = render(
+    <CalculatorContext.Provider
       value={{
         state: {
           stack: [111, 222, 333],
@@ -18,7 +18,7 @@ test('Results renders', () => {
       }}
     >
       <Results />
-    </Provider>
+    </CalculatorContext.Provider>
   );
   expect(getByText(/^111/));
   expect(getByText(/^222/));

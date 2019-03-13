@@ -6,7 +6,7 @@ import {CalculatorContext} from '../util/context';
 
 const Results = () => {
   let context = useContext(CalculatorContext);
-  let resultPanelEl = useRef<HTMLInputElement>(null);
+  let resultPanelEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (resultPanelEl.current !== null)

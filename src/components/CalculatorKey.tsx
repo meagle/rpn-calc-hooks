@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import {CalcKey} from '../types';
 import {CalculatorContext} from '../util/context';
-import {sendKey} from '../util/actions';
+import {sendKey, registerKey, unregisterKey} from '../util/actions';
 // import Button from 'react-bootstrap/lib/Button';
 // import '../css/CalculatorKey.css';
 
@@ -12,11 +12,12 @@ type Props = {
 const CalculatorKey = ({calcKey}: Props) => {
   let context = useContext(CalculatorContext);
   let {state, dispatch} = context;
+  let {keyLabel} = calcKey;
 
   useEffect(() => {
-    // dispatch();  // TODO: registerKey
+    dispatch(registerKey(calcKey));
     return () => {
-      // dispatch();  // TODO: unregisterKey
+      dispatch(unregisterKey(keyLabel));
     };
   }, []);
 

@@ -1,5 +1,6 @@
-import {Action, Stack, CalcKey, CalcKeyMap} from '../types';
 import {combineReducers} from 'redux';
+import {Action, Stack, CalcKey, CalcKeyMap} from '../types';
+import removeObjectKey from './removeObjectKey';
 
 export const reduceInput = (input: string = '', action: Action): string => {
   switch (action.type) {
@@ -56,7 +57,10 @@ export const reduceKeys = (
 ): CalcKeyMap => {
   switch (action.type) {
     case 'REGISTER_KEY':
+      keys[action.key.keyLabel] = action.key;
       return keys;
+    case 'UNREGISTER_KEY':
+      return removeObjectKey(action.keyLabel, keys);
     default:
       return keys;
   }

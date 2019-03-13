@@ -12,6 +12,4 @@ const DEFAULT_CONTEXT: CalcContext = {
 
 const CalculatorContext = React.createContext(DEFAULT_CONTEXT);
 
-const {Provider, Consumer} = CalculatorContext;
-
-export {DEFAULT_CONTEXT, Provider, Consumer, CalculatorContext};
+export {DEFAULT_CONTEXT, CalculatorContext};

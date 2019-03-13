@@ -1,5 +1,5 @@
-import {reduceInput, reduceStack} from './reducers';
-import {Stack} from '../types';
+import {reduceInput, reduceStack, reduceKeys} from './reducers';
+import {Stack, CalcKeyMap, CalcKey} from '../types';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
 
 test('User can add new input', () => {
@@ -117,6 +117,42 @@ test('Stack can run an operation with arity 2 on current input', () => {
     type: 'USER_OPERATOR_INPUT',
     key: OPERATOR_KEYS['add'],
     userInput: '3',
+  });
+
+  expect(actual).toEqual(expected);
+});
+
+test('Register a calculator key', () => {
+  const expected: CalcKeyMap = {
+    '1': {type: 'OPERAND', keyLabel: '1', keyValue: '1'},
+    '2': {type: 'OPERAND', keyLabel: '2', keyValue: '2'},
+  };
+
+  const oneKey: CalcKey = {type: 'OPERAND', keyLabel: '1', keyValue: '1'};
+  const twoKey: CalcKey = {type: 'OPERAND', keyLabel: '2', keyValue: '2'};
+
+  let first: CalcKeyMap = reduceKeys({}, {type: 'REGISTER_KEY', key: oneKey});
+  let actual: CalcKeyMap = reduceKeys(first, {
+    type: 'REGISTER_KEY',
+    key: twoKey,
+  });
+
+  expect(first).toEqual(expected);
+});
+
+test('Unregister a calculator key', () => {
+  const state: CalcKeyMap = {
+    '1': {type: 'OPERAND', keyLabel: '1', keyValue: '1'},
+    '2': {type: 'OPERAND', keyLabel: '2', keyValue: '2'},
+  };
+
+  const expected: CalcKeyMap = {
+    '1': {type: 'OPERAND', keyLabel: '1', keyValue: '1'},
+  };
+
+  const actual: CalcKeyMap = reduceKeys(state, {
+    type: 'UNREGISTER_KEY',
+    keyLabel: '2',
   });
 
   expect(actual).toEqual(expected);

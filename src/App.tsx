@@ -1,7 +1,7 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useMemo} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Provider} from './util/context';
+import {CalculatorContext} from './util/context';
 import reducer from './util/reducers';
 import Results from './components/Results';
 import {CalcState} from './types';
@@ -14,19 +14,17 @@ let initialState: CalcState = {
 
 const App = () => {
   let [state, dispatch] = useReducer(reducer, initialState);
+  const value = useMemo(() => {
+    return {state, dispatch};
+  }, [state, dispatch]);
 
   // const _registerKey = (calcKey: CalcKey) => undefined;
 
   return (
     <div>
-      <Provider
-        value={{
-          state,
-          dispatch,
-        }}
-      >
+      <CalculatorContext.Provider value={value}>
         <Results />
-      </Provider>
+      </CalculatorContext.Provider>
     </div>
   );
 };
