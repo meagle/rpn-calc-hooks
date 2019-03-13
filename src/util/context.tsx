@@ -10,6 +10,8 @@ const DEFAULT_CONTEXT: CalcContext = {
   dispatch: () => {},
 };
 
-const {Provider, Consumer} = React.createContext(DEFAULT_CONTEXT);
+const CalculatorContext = React.createContext(DEFAULT_CONTEXT);
 
-export {DEFAULT_CONTEXT, Provider, Consumer};
+const {Provider, Consumer} = CalculatorContext;
+
+export {DEFAULT_CONTEXT, Provider, Consumer, CalculatorContext};

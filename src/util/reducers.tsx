@@ -1,4 +1,4 @@
-import {Action, Stack} from '../types';
+import {Action, Stack, CalcKey, CalcKeyMap} from '../types';
 import {combineReducers} from 'redux';
 
 export const reduceInput = (input: string = '', action: Action): string => {
@@ -50,8 +50,21 @@ export const reduceStack = (stack: Stack = [], action: Action): Stack => {
   }
 };
 
+export const reduceKeys = (
+  keys: CalcKeyMap = {},
+  action: Action
+): CalcKeyMap => {
+  switch (action.type) {
+    case 'REGISTER_KEY':
+      return keys;
+    default:
+      return keys;
+  }
+};
+
 export default combineReducers({
   input: reduceInput,
   // stack: undoable(reduceStack),  TODO: reintroduce this later
   stack: reduceStack,
+  keys: reduceKeys,
 });

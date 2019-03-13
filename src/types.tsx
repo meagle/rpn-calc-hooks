@@ -1,11 +1,16 @@
 import {Dispatch} from 'react';
 
-export type OperandCalcKey = {
+type Key = {
   keyValue: string;
   keyLabel: string;
 };
 
-export type OperatorCalcKey = OperandCalcKey & {
+export type OperandCalcKey = Key & {
+  type: 'OPERAND';
+};
+
+export type OperatorCalcKey = Key & {
+  type: 'OPERATOR';
   arity: number;
   fn: (...args: Array<number>) => number;
 };
@@ -14,10 +19,12 @@ export type CalcKey = OperandCalcKey | OperatorCalcKey;
 
 export type Stack = number[];
 
+export type CalcKeyMap = {[key: string]: CalcKey};
+
 export type CalcState = {
   stack: Stack;
   input: string;
-  keys?: {[key: string]: CalcKey};
+  keys: CalcKeyMap;
 };
 
 export type CalcContext = {state: CalcState; dispatch: Dispatch<Action>};
@@ -43,8 +50,14 @@ export type RemoveStackAction = {
   userInput?: string;
 };
 
+export type RegisterKeyAction = {
+  type: 'REGISTER_KEY';
+  key: CalcKey;
+};
+
 export type Action =
   | UserNumericInputAction
   | UserExpressionInputAction
   | AddToStackAction
-  | RemoveStackAction;
+  | RemoveStackAction
+  | RegisterKeyAction;

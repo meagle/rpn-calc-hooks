@@ -3,21 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 import {Provider} from './util/context';
 import reducer from './util/reducers';
-import {OperatorCalcKey, OperandCalcKey, CalcKey, CalcState} from './types';
-
-const _onOperator = (calcKey: OperatorCalcKey) => undefined;
-
-const _onOperand = (calcKey: OperandCalcKey) => undefined;
-
-const _registerKey = (calcKey: CalcKey) => undefined;
+import Results from './components/Results';
+import {CalcState} from './types';
 
 let initialState: CalcState = {
-  stack: [],
   input: '',
+  stack: [],
+  keys: {},
 };
 
 const App = () => {
   let [state, dispatch] = useReducer(reducer, initialState);
+
+  // const _registerKey = (calcKey: CalcKey) => undefined;
 
   return (
     <div>
@@ -27,7 +25,7 @@ const App = () => {
           dispatch,
         }}
       >
-        <div>Test</div>
+        <Results />
       </Provider>
     </div>
   );
