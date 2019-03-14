@@ -19,7 +19,8 @@
     "noEmit": true,
     "jsx": "preserve",
     "downlevelIteration": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "strictNullChecks": true
   },
   "include": [
     "src"

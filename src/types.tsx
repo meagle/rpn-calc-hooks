@@ -19,7 +19,7 @@ export type CalcKey = OperandCalcKey | OperatorCalcKey;
 
 export type Stack = number[];
 
-export type CalcKeyMap = Partial<{[key: string]: CalcKey}>;
+export type CalcKeyMap = {[key: string]: CalcKey};
 
 export type CalcState = {
   stack: Stack;
