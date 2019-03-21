@@ -29,18 +29,20 @@ test('Click calculator key', async () => {
   const tree = (
     <App>
       <CalculatorContext.Consumer>
-        {(ctx: CalcContext) => (
-          <label htmlFor="userInput">
-            Input:
-            <input
-              id="userInput"
-              data-testid="userInput"
-              name="userInput"
-              type="text"
-              defaultValue={ctx.state.input}
-            />
-          </label>
-        )}
+        {(ctx: CalcContext) =>
+          ctx.state.input && (
+            <label htmlFor="userInput">
+              Input:
+              <input
+                id="userInput"
+                data-testid="userInput"
+                name="userInput"
+                type="text"
+                defaultValue={ctx.state.input}
+              />
+            </label>
+          )
+        }
       </CalculatorContext.Consumer>
       <CalculatorKey keyId={keyId} calcKey={key} />
     </App>
