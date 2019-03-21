@@ -4,6 +4,7 @@ import {
   cleanup,
   fireEvent,
   waitForDomChange,
+  waitForElement,
 } from 'react-testing-library';
 import {DEFAULT_CONTEXT} from '../util/context';
 import App from '../App';
@@ -52,14 +53,12 @@ test('Click calculator key', async () => {
 
   fireEvent.click(getByText(/^1/));
 
-  await waitForDomChange({container})
-    .then(() => {
-      console.log('DOM Changed!');
-      debug();
-    })
-    .catch(err => console.log(`Error: ${err}`));
-
   const input = getByLabelText('Input:');
+
+  await waitForElement(() => input).then(() => {
+    console.log('DOM Changed!');
+    debug();
+  });
 
   expect((input as HTMLInputElement).value).toBe('1');
 });
