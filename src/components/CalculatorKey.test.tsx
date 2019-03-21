@@ -49,16 +49,17 @@ test('Click calculator key', async () => {
     </App>
   );
 
-  const {getByText, getByLabelText, container, debug} = render(tree);
+  const {getByText, getByLabelText, debug} = render(tree);
 
   fireEvent.click(getByText(/^1/));
 
-  const input = getByLabelText('Input:');
+  const input = await waitForElement(() => getByLabelText('Input:')).then(
+    () => {
+      console.log('DOM Changed!');
+      debug();
+    }
+  );
 
-  await waitForElement(() => input).then(() => {
-    console.log('DOM Changed!');
-    debug();
-  });
-
+  // @ts-ignore
   expect((input as HTMLInputElement).value).toBe('1');
 });
