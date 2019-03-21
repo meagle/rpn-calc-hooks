@@ -14,7 +14,7 @@ import {CalcContext} from '../types';
 
 afterEach(cleanup);
 
-test('Results renders', () => {
+test('Results renders', async () => {
   const keyId = 'add';
   const key = OPERATOR_KEYS[keyId];
 
@@ -22,7 +22,7 @@ test('Results renders', () => {
   expect(getByText(/^\+/));
 });
 
-test('Click calculator key', () => {
+test('Click calculator key', async () => {
   const keyId = '1';
   const key = OPERAND_KEYS[keyId];
 
@@ -46,10 +46,18 @@ test('Click calculator key', () => {
     </App>
   );
 
-  const {getByText, getByLabelText, debug} = render(tree);
+  const {getByText, getByLabelText, container, debug} = render(tree);
+
+  fireEvent.click(getByText(/^1/));
+
+  await waitForDomChange({container})
+    .then(() => {
+      console.log('DOM Changed!');
+      debug();
+    })
+    .catch(err => console.log(`Error: ${err}`));
+
   const input = getByLabelText('Input:');
 
-  expect(getByText(/^1/));
-  fireEvent.click(getByText(/^1/));
   expect((input as HTMLInputElement).value).toBe('1');
 });
