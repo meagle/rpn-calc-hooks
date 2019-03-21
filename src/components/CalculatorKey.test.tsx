@@ -54,12 +54,12 @@ test('Click calculator key', async () => {
   fireEvent.click(getByText(/^1/));
 
   const input = await waitForElement(() => getByLabelText('Input:')).then(
-    () => {
+    element => {
       console.log('DOM Changed!');
       debug();
+      return element;
     }
   );
 
-  // @ts-ignore
   expect((input as HTMLInputElement).value).toBe('1');
 });
