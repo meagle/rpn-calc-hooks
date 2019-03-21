@@ -23,42 +23,33 @@ test('Results renders', () => {
 });
 
 test('Click calculator key', () => {
-  const context = {...DEFAULT_CONTEXT};
-
   const keyId = '1';
   const key = OPERAND_KEYS[keyId];
 
   const tree = (
     <App>
       <CalculatorContext.Consumer>
-        {(ctx: CalcContext) =>
-          ctx.state.input && (
-            <label htmlFor="userInput">
-              Input:
-              <input
-                id="userInput"
-                name="userInput"
-                type="text"
-                defaultValue={ctx.state.input}
-              />
-            </label>
-          )
-        }
+        {(ctx: CalcContext) => (
+          <label htmlFor="userInput">
+            Input:
+            <input
+              id="userInput"
+              data-testid="userInput"
+              name="userInput"
+              type="text"
+              defaultValue={ctx.state.input}
+            />
+          </label>
+        )}
       </CalculatorContext.Consumer>
       <CalculatorKey keyId={keyId} calcKey={key} />
     </App>
   );
 
-  const {getByText, getByLabelText, container, debug} = render(tree);
-  waitForDomChange({container})
-    .then(() => {
-      console.log('DOM Changed!');
-      debug();
-    })
-    .catch(err => console.log(`Error: ${err}`));
+  const {getByText, getByLabelText, debug} = render(tree);
+  const input = getByLabelText('Input:');
+
   expect(getByText(/^1/));
   fireEvent.click(getByText(/^1/));
-  debug();
-  const input = getByLabelText('Input:');
   expect((input as HTMLInputElement).value).toBe('1');
 });
