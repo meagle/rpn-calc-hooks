@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {OperatorCalcKey, OperandCalcKey, CalcContext, CalcKey} from '../types';
+import {CalcContext} from '../types';
 
 const DEFAULT_CONTEXT: CalcContext = {
   state: {
     stack: [],
     input: '',
-    keys: {},
   },
   dispatch: () => {},
 };

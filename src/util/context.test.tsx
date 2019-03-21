@@ -7,7 +7,6 @@ afterEach(cleanup);
 
 test('Provider has a Consumer with DEFAULT_CONTEXT', () => {
   const context = {...DEFAULT_CONTEXT};
-  const div = document.createElement('div');
 
   const tree = (
     <CalculatorContext.Provider value={context}>

@@ -1,18 +1,22 @@
-import React, {useReducer, useMemo} from 'react';
+import React, {ReactNode, useReducer, useMemo} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {CalculatorContext} from './util/context';
 import reducer from './util/reducers';
 import Results from './components/Results';
 import {CalcState} from './types';
+import {checkPropTypes} from 'prop-types';
+
+type Props = {
+  children: ReactNode;
+};
 
 let initialState: CalcState = {
   input: '',
   stack: [],
-  keys: {},
 };
 
-const App = () => {
+const App = (props: Props) => {
   let [state, dispatch] = useReducer(reducer, initialState);
   const value = useMemo(() => {
     return {state, dispatch};
@@ -23,7 +27,7 @@ const App = () => {
   return (
     <div>
       <CalculatorContext.Provider value={value}>
-        <Results />
+        {props.children}
       </CalculatorContext.Provider>
     </div>
   );

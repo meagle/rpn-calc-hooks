@@ -5,7 +5,7 @@ const toRadians = (angle: number) => angle * (Math.PI / 180);
 
 const round = (x: number) => Math.round(x * 1000000) / 1000000;
 
-export const generateOperands = () => {
+const generateOperands = (): {[key: string]: OperandCalcKey} => {
   return [...Array(10).keys(), '.']
     .map(n => {
       return n.toString();

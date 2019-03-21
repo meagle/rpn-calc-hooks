@@ -17,6 +17,8 @@ export type OperatorCalcKey = Key & {
 
 export type CalcKey = OperandCalcKey | OperatorCalcKey;
 
+export type CalcKeyType = CalcKey['type'];
+
 export type Stack = number[];
 
 export type CalcKeyMap = {[key: string]: CalcKey};
@@ -24,19 +26,18 @@ export type CalcKeyMap = {[key: string]: CalcKey};
 export type CalcState = {
   stack: Stack;
   input: string;
-  keys: CalcKeyMap;
 };
 
 export type CalcContext = {state: CalcState; dispatch: Dispatch<Action>};
 
 export type UserNumericInputAction = {
   type: 'USER_NUMERIC_INPUT';
-  key: OperandCalcKey;
+  keyId: string;
 };
 
 export type UserExpressionInputAction = {
   type: 'USER_OPERATOR_INPUT';
-  key: OperatorCalcKey;
+  keyId: string;
   userInput?: string;
 };
 

@@ -1,77 +1,58 @@
-import {CalcKey} from '../types';
+import { addInputToStack, removeFromStack, sendKey } from "./actions";
+import { OPERAND_KEYS, OPERATOR_KEYS } from "./keys";
 
-import {
-  addInputToStack,
-  removeFromStack,
-  sendKey,
-  registerKey,
-  unregisterKey,
-} from './actions';
-import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
+test("Sends an operand to the stack", () => {
+  const keyId = "5";
+  const calcKey = OPERAND_KEYS[keyId];
 
-test('Sends an operand to the stack', () => {
   const expected = {
-    type: 'USER_NUMERIC_INPUT',
-    key: OPERAND_KEYS['5'],
+    type: "USER_NUMERIC_INPUT",
+    keyId
   };
 
-  const actual = sendKey(OPERAND_KEYS['5']);
+  const actual = sendKey(keyId, calcKey.type);
   expect(actual).toEqual(expected);
 });
 
-test('Sends an operator to the stack', () => {
-  const actual = sendKey(OPERATOR_KEYS['sqrt'], '2');
-  expect(actual).toMatchSnapshot();
+test("Sends an operator to the stack", () => {
+  const keyId = "sqrt";
+  const calcKey = OPERATOR_KEYS[keyId];
+
+  const actual = sendKey(keyId, calcKey.type, "2");
+  expect(actual).toMatchInlineSnapshot(`
+Object {
+  "keyId": "sqrt",
+  "type": "USER_OPERATOR_INPUT",
+  "userInput": "2",
+}
+`);
 });
 
-test('Adds the current input to the stack', () => {
+test("Adds the current input to the stack", () => {
   const expected = {
-    type: 'ADD_TO_STACK',
-    userInput: '42',
+    type: "ADD_TO_STACK",
+    userInput: "42"
   };
-  const actual = addInputToStack('42');
+  const actual = addInputToStack("42");
   expect(actual).toEqual(expected);
 
-  const actual2 = addInputToStack('42');
+  const actual2 = addInputToStack("42");
   expect(actual2).toEqual(expected);
 });
 
-test('Removes from the stack or current input', () => {
+test("Removes from the stack or current input", () => {
   const expected = {
-    type: 'REMOVE_FROM_STACK',
-    userInput: '42',
+    type: "REMOVE_FROM_STACK",
+    userInput: "42"
   };
-  const actual = removeFromStack('42');
+  const actual = removeFromStack("42");
   expect(actual).toEqual(expected);
 });
 
-test('Removes from the stack when there is no current input', () => {
+test("Removes from the stack when there is no current input", () => {
   const expected = {
-    type: 'REMOVE_FROM_STACK',
+    type: "REMOVE_FROM_STACK"
   };
   const actual = removeFromStack();
-  expect(actual).toEqual(expected);
-});
-
-test('Register a key', () => {
-  const key: CalcKey = {
-    type: 'OPERAND',
-    keyLabel: '1',
-    keyValue: '1',
-  };
-  const expected = {
-    type: 'REGISTER_KEY',
-    key,
-  };
-  const actual = registerKey(key);
-  expect(actual).toEqual(expected);
-});
-
-test('Unregister a key', () => {
-  const expected = {
-    type: 'UNREGISTER_KEY',
-    keyLabel: '1',
-  };
-  const actual = unregisterKey('1');
   expect(actual).toEqual(expected);
 });

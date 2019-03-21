@@ -1,4 +1,4 @@
-import {Action, CalcKey} from '../types';
+import {Action, CalcKeyType} from '../types';
 
 export const addInputToStack = (userInput: string): Action => ({
   type: 'ADD_TO_STACK',
@@ -10,28 +10,22 @@ export const removeFromStack = (userInput?: string): Action => ({
   userInput,
 });
 
-export const sendKey = (key: CalcKey, userInput?: string): Action => {
-  switch (key.type) {
+export const sendKey = (
+  keyId: string,
+  keyType: CalcKeyType,
+  userInput?: string
+): Action => {
+  switch (keyType) {
     case 'OPERAND':
       return {
         type: 'USER_NUMERIC_INPUT',
-        key,
+        keyId,
       };
     case 'OPERATOR':
       return {
         type: 'USER_OPERATOR_INPUT',
-        key,
+        keyId,
         userInput,
       };
   }
 };
-
-export const registerKey = (key: CalcKey): Action => ({
-  type: 'REGISTER_KEY',
-  key,
-});
-
-export const unregisterKey = (keyLabel: string): Action => ({
-  type: 'UNREGISTER_KEY',
-  keyLabel,
-});
