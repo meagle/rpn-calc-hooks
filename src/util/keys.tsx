@@ -1,4 +1,4 @@
-import {OperandCalcKey, OperatorCalcKey} from '../types';
+import {CalcKey, OperandCalcKey, OperatorCalcKey} from '../types';
 import {compose} from 'redux';
 
 const toRadians = (angle: number) => angle * (Math.PI / 180);
@@ -15,6 +15,7 @@ const generateOperands = (): {[key: string]: OperandCalcKey} => {
         type: 'OPERAND',
         keyValue: val,
         keyLabel: val,
+        'js-key': val,
       };
       return acc;
     }, {});
@@ -29,6 +30,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'Enter',
     keyLabel: 'Enter',
     fn: a => a,
+    'js-key': 'Enter',
   },
   backspace: {
     type: 'OPERATOR',
@@ -36,6 +38,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'Backspace',
     keyLabel: 'DEL',
     fn: a => a,
+    'js-key': 'Backspace',
   },
   add: {
     type: 'OPERATOR',
@@ -43,6 +46,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: '+',
     keyLabel: '+',
     fn: (a, b) => a + b,
+    'js-key': '+',
   },
   sub: {
     type: 'OPERATOR',
@@ -50,6 +54,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: '-',
     keyLabel: '-',
     fn: (a, b) => b - a,
+    'js-key': '-',
   },
   mult: {
     type: 'OPERATOR',
@@ -57,6 +62,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: '*',
     keyLabel: '*',
     fn: (a, b) => a * b,
+    'js-key': '*',
   },
   div: {
     type: 'OPERATOR',
@@ -64,6 +70,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: '/',
     keyLabel: '/',
     fn: (a, b) => b / a,
+    'js-key': '/',
   },
   sqrt: {
     type: 'OPERATOR',
@@ -71,6 +78,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'q',
     keyLabel: 'sqrt',
     fn: n => Math.sqrt(n),
+    'js-key': 'q',
   },
   ex: {
     type: 'OPERATOR',
@@ -78,6 +86,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'e',
     keyLabel: 'e^x',
     fn: n => Math.pow(Math.E, n),
+    'js-key': 'e',
   },
   tenx: {
     type: 'OPERATOR',
@@ -85,6 +94,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 't',
     keyLabel: '10^x',
     fn: n => Math.pow(10, n),
+    'js-key': 't',
   },
   yx: {
     type: 'OPERATOR',
@@ -92,6 +102,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'y',
     keyLabel: 'y^x',
     fn: (x, y) => Math.pow(y, x),
+    'js-key': 'y',
   },
   oneoverx: {
     type: 'OPERATOR',
@@ -99,6 +110,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'o',
     keyLabel: '1/x',
     fn: x => 1 / x,
+    'js-key': 'o',
   },
   chs: {
     type: 'OPERATOR',
@@ -106,12 +118,14 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'C',
     keyLabel: 'CHS',
     fn: x => x * -1,
+    'js-key': 'C',
   },
   sin: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 's',
     keyLabel: 'SIN',
+    'js-key': 's',
     fn: compose(
       round,
       Math.sin,
@@ -123,6 +137,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 'c',
     keyLabel: 'COS',
+    'js-key': 'c',
     fn: compose(
       round,
       Math.cos,
@@ -134,10 +149,16 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 't',
     keyLabel: 'TAN',
+    'js-key': 't',
     fn: compose(
       round,
       Math.tan,
       toRadians
     ),
   },
+};
+
+export const ALL_KEYS: {[key: string]: CalcKey} = {
+  ...OPERAND_KEYS,
+  ...OPERATOR_KEYS,
 };

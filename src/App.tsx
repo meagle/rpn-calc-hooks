@@ -22,7 +22,10 @@ const App = (props: Props) => {
     return {state, dispatch};
   }, [state, dispatch]);
 
-  // const _registerKey = (calcKey: CalcKey) => undefined;
+  // TODO: Create a layout component for keys and a single method
+  // that will iterate over each of the key definitions and create
+  // a keydown listener (maybe in a separate util) and attach them to
+  // window
 
   return (
     <div>

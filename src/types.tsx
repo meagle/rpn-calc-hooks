@@ -3,6 +3,7 @@ import {Dispatch} from 'react';
 type Key = {
   keyValue: string;
   keyLabel: string;
+  'js-key': string;
 };
 
 export type OperandCalcKey = Key & {

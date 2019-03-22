@@ -1,29 +1,27 @@
 import React, {useContext} from 'react';
 import {CalculatorContext} from '../util/context';
 import {sendKey} from '../util/actions';
-import {CalcKey} from '../types';
-// import Button from 'react-bootstrap/lib/Button';
-// import '../css/CalculatorKey.css';
+import useKeyboardEvent from '../util/useKeyboardEvent';
+import {ALL_KEYS} from '../util/keys';
 
 type Props = {
-  calcKey: CalcKey;
   keyId: string;
 };
 
-const CalculatorKey = ({calcKey: {keyLabel, type: keyType}, keyId}: Props) => {
-  let context = useContext(CalculatorContext);
-  let {state, dispatch} = context;
+const CalculatorKey = ({keyId}: Props) => {
+  const {state, dispatch} = useContext(CalculatorContext);
+  const {type: keyType, keyLabel} = ALL_KEYS[keyId];
+  useKeyboardEvent(keyId, () => {
+    dispatch(sendKey(keyId, keyType, state.input));
+  });
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     dispatch(sendKey(keyId, keyType, state.input));
   };
 
-  // TODO: Handle key presses in addition to clicks
-
   return (
     <div className="Calc-key" onClick={handleClick}>
-      {/* <div bsStyle="primary" bsSize="large"> */}
       <div>{keyLabel}</div>
     </div>
   );

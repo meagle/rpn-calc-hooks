@@ -3,4 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const app = (
+  <App>
+    <div>TODO</div>
+  </App>
+);
+
+ReactDOM.render(app, document.getElementById('root'));

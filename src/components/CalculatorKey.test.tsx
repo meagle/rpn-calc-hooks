@@ -3,10 +3,8 @@ import {
   render,
   cleanup,
   fireEvent,
-  waitForDomChange,
   waitForElement,
 } from 'react-testing-library';
-import {DEFAULT_CONTEXT} from '../util/context';
 import App from '../App';
 import CalculatorKey from './CalculatorKey';
 import {CalculatorContext} from '../util/context';
@@ -19,7 +17,7 @@ test('Results renders', async () => {
   const keyId = 'add';
   const key = OPERATOR_KEYS[keyId];
 
-  const {getByText} = render(<CalculatorKey keyId={keyId} calcKey={key} />);
+  const {getByText} = render(<CalculatorKey keyId={keyId} />);
   expect(getByText(/^\+/));
 });
 
@@ -45,7 +43,7 @@ test('Click calculator key', async () => {
           )
         }
       </CalculatorContext.Consumer>
-      <CalculatorKey keyId={keyId} calcKey={key} />
+      <CalculatorKey keyId={keyId} />
     </App>
   );
 
@@ -56,7 +54,46 @@ test('Click calculator key', async () => {
   const input = await waitForElement(() => getByLabelText('Input:')).then(
     element => {
       console.log('DOM Changed!');
-      debug();
+      // debug();
+      return element;
+    }
+  );
+
+  expect((input as HTMLInputElement).value).toBe('1');
+});
+
+test('onKeydown calculator key', async () => {
+  const keyId = '1';
+
+  const tree = (
+    <App>
+      <CalculatorContext.Consumer>
+        {(ctx: CalcContext) =>
+          ctx.state.input && (
+            <label htmlFor="userInput">
+              Input:
+              <input
+                id="userInput"
+                data-testid="userInput"
+                name="userInput"
+                type="text"
+                defaultValue={ctx.state.input}
+              />
+            </label>
+          )
+        }
+      </CalculatorContext.Consumer>
+      <CalculatorKey keyId={keyId} />
+    </App>
+  );
+
+  const {getByText, getByLabelText} = render(tree);
+
+  fireEvent.keyDown(getByText(/^1/), {key: '1'});
+
+  const input = await waitForElement(() => getByLabelText('Input:')).then(
+    element => {
+      console.log('DOM Changed!');
       return element;
     }
   );
