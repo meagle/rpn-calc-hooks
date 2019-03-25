@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import StackItem from './StackItem';
 // import Input from './Input';
-// import '../css/Result.css';
+import './Results.css';
 import {CalculatorContext} from '../util/context';
 
 const Results = () => {
@@ -14,15 +14,13 @@ const Results = () => {
   }, [context.state.stack]);
 
   return (
-    <div className="panel panel-default Result-panel" ref={resultPanelEl}>
-      <div className="panel-body">
-        <ul className="list-group">
-          {context.state.stack.reverse().map((item, idx) => (
-            <StackItem key={idx} item={item} />
-          ))}
-          {/* <Input input={input} /> */}
-        </ul>
-      </div>
+    <div className="Result-panel" ref={resultPanelEl}>
+      <ul className="list-group">
+        {context.state.stack.reverse().map((item, idx) => (
+          <StackItem key={idx} item={item} />
+        ))}
+        {/* <Input input={input} /> */}
+      </ul>
     </div>
   );
 };

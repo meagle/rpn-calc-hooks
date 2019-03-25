@@ -21,6 +21,7 @@ export const reduceInput = (input: string = '', action: Action): string => {
 };
 
 export const reduceStack = (stack: Stack = [], action: Action): Stack => {
+  console.log('action: ', action);
   switch (action.type) {
     case 'ADD_TO_STACK':
       return [Number(action.userInput), ...stack.slice(0, stack.length)];

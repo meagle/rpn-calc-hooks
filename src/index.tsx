@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Results from './components/Results';
+import KeyboardContainer from './components/KeyboardContainer';
 
 const app = (
   <App>
-    <div>TODO</div>
+    <Results />
+    <KeyboardContainer />
   </App>
 );
 

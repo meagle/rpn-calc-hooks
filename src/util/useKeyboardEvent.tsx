@@ -12,7 +12,7 @@ const useKeyboardEvent = (key: string, callback: () => void) => {
     return () => {
       window.removeEventListener('keydown', handler);
     };
-  }, []);
+  }, [key, callback]);
 };
 
 export default useKeyboardEvent;

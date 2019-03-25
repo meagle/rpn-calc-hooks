@@ -104,7 +104,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (x, y) => Math.pow(y, x),
     'js-key': 'y',
   },
-  oneoverx: {
+  reciprocal: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'o',
