@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useCallback} from 'react';
 import {CalculatorContext} from '../util/context';
 import {sendKey} from '../util/actions';
 import useKeyboardEvent from '../util/useKeyboardEvent';
@@ -9,15 +9,21 @@ type Props = {
 };
 
 const CalculatorKey = ({keyId}: Props) => {
-  const {state, dispatch} = useContext(CalculatorContext);
+  const {
+    state: {input: userInput},
+    dispatch,
+  } = useContext(CalculatorContext);
   const {type: keyType, keyLabel} = ALL_KEYS[keyId];
-  useKeyboardEvent(keyId, () => {
-    dispatch(sendKey(keyId, keyType, state.input));
-  });
+
+  const memoizedHandleKeydown = useCallback(() => {
+    dispatch(sendKey(keyId, keyType, userInput));
+  }, [keyId, keyType, userInput]);
+
+  useKeyboardEvent(keyId, memoizedHandleKeydown);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-    dispatch(sendKey(keyId, keyType, state.input));
+    dispatch(sendKey(keyId, keyType, userInput));
   };
 
   return (
