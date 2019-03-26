@@ -1,8 +1,7 @@
 import {Action, CalcKeyType} from '../types';
 
-export const addInputToStack = (userInput: string): Action => ({
+export const addInputToStack = (): Action => ({
   type: 'ADD_TO_STACK',
-  userInput,
 });
 
 export const removeFromStack = (userInput?: string): Action => ({

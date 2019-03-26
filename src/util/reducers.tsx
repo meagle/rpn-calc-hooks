@@ -1,5 +1,4 @@
-import {combineReducers} from 'redux';
-import {Action, Stack} from '../types';
+import {Action, Stack, CalcState} from '../types';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
 
 export const reduceInput = (input: string = '', action: Action): string => {
@@ -13,7 +12,7 @@ export const reduceInput = (input: string = '', action: Action): string => {
       }
       return input;
     case 'USER_OPERATOR_INPUT':
-    case 'ADD_TO_STACK':
+    case 'ADD_USER_INPUT_TO_STACK':
       return '';
     default:
       return input;
@@ -21,9 +20,9 @@ export const reduceInput = (input: string = '', action: Action): string => {
 };
 
 export const reduceStack = (stack: Stack = [], action: Action): Stack => {
-  console.log('action: ', action);
+  console.log('action: ', action, 'stack', stack);
   switch (action.type) {
-    case 'ADD_TO_STACK':
+    case 'ADD_USER_INPUT_TO_STACK':
       return [Number(action.userInput), ...stack.slice(0, stack.length)];
     case 'REMOVE_FROM_STACK':
       if (!action.userInput && stack.length > 0) {
@@ -55,8 +54,19 @@ export const reduceStack = (stack: Stack = [], action: Action): Stack => {
   }
 };
 
-export default combineReducers({
-  input: reduceInput,
-  // stack: undoable(reduceStack),  TODO: reintroduce this later
-  stack: reduceStack,
-});
+export default (state: CalcState, action: Action) => {
+  if (action.type === 'ADD_TO_STACK') {
+    action = {
+      type: 'ADD_USER_INPUT_TO_STACK',
+      userInput: state.input,
+    };
+  }
+
+  const stack = reduceStack(state && state.stack, action);
+  const input = reduceInput(state && state.input, action);
+
+  return {
+    input,
+    stack,
+  };
+};

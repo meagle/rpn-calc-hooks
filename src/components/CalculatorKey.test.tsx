@@ -15,7 +15,6 @@ afterEach(cleanup);
 
 test('Results renders', async () => {
   const keyId = 'add';
-  const key = OPERATOR_KEYS[keyId];
 
   const {getByText} = render(<CalculatorKey keyId={keyId} />);
   expect(getByText(/^\+/));

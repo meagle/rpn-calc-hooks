@@ -44,6 +44,10 @@ export type UserExpressionInputAction = {
 
 export type AddToStackAction = {
   type: 'ADD_TO_STACK';
+};
+
+export type AddUserInputToStackAction = {
+  type: 'ADD_USER_INPUT_TO_STACK';
   userInput: string;
 };
 
@@ -63,9 +67,10 @@ export type UnregisterKeyAction = {
 };
 
 export type Action =
-  | UserNumericInputAction
-  | UserExpressionInputAction
   | AddToStackAction
+  | AddUserInputToStackAction
   | RemoveStackAction
   | RegisterKeyAction
-  | UnregisterKeyAction;
+  | UnregisterKeyAction
+  | UserNumericInputAction
+  | UserExpressionInputAction;

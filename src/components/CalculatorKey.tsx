@@ -11,31 +11,25 @@ type Props = {
 };
 
 const CalculatorKey = ({keyId}: Props) => {
-  const {
-    state: {input: userInput},
-    dispatch,
-  } = useContext(CalculatorContext);
+  const {dispatch} = useContext(CalculatorContext);
   const {type: keyType, keyLabel} = ALL_KEYS[keyId];
 
-  console.log('userInput: ' + userInput, 'keyId', keyId);
   const memoizedHandleKeydown = useCallback(() => {
-    console.log('userInput: ' + userInput);
-
     if (keyId === 'enter') {
-      dispatch(addInputToStack(userInput));
+      dispatch(addInputToStack());
     } else {
-      dispatch(sendKey(keyId, keyType, userInput));
+      dispatch(sendKey(keyId, keyType));
     }
-  }, [keyId, keyType, userInput]);
+  }, [keyId, keyType]);
 
   useKeyboardEvent(keyId, memoizedHandleKeydown);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     if (keyId === 'enter') {
-      dispatch(addInputToStack(userInput));
+      dispatch(addInputToStack());
     } else {
-      dispatch(sendKey(keyId, keyType, userInput));
+      dispatch(sendKey(keyId, keyType));
     }
   };
 

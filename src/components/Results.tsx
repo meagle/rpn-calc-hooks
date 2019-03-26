@@ -5,8 +5,9 @@ import './Results.css';
 import {CalculatorContext} from '../util/context';
 
 const Results = () => {
-  let context = useContext(CalculatorContext);
+  const context = useContext(CalculatorContext);
   let resultPanelEl = useRef<HTMLDivElement>(null);
+  const stack = [...context.state.stack];
 
   useEffect(() => {
     if (resultPanelEl.current !== null)
@@ -16,7 +17,7 @@ const Results = () => {
   return (
     <div className="Result-panel" ref={resultPanelEl}>
       <ul className="list-group">
-        {context.state.stack.reverse().map((item, idx) => (
+        {stack.reverse().map((item, idx) => (
           <StackItem key={idx} item={item} />
         ))}
         {/* <Input input={input} /> */}

@@ -1,5 +1,5 @@
-import {reduceInput, reduceStack} from './reducers';
-import {Stack} from '../types';
+import reducers, {reduceInput, reduceStack} from './reducers';
+import {Stack, CalcState} from '../types';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
 
 test('User can add new input', () => {
@@ -26,11 +26,24 @@ test('Stack can add new input as a new stack item', () => {
   const expected: Stack = [3];
 
   const actual: Stack = reduceStack([], {
-    type: 'ADD_TO_STACK',
+    type: 'ADD_USER_INPUT_TO_STACK',
     userInput: '3',
   });
 
   expect(actual).toEqual(expected);
+
+  const state = reducers(
+    {
+      stack: [3],
+      input: '5',
+    },
+    {type: 'ADD_TO_STACK'}
+  );
+
+  expect(state).toEqual({
+    stack: [5, 3],
+    input: '',
+  });
 });
 
 test('Remove first stack item when there is no user Input', () => {
