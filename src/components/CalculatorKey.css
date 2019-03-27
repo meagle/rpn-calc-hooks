@@ -1,0 +1,17 @@
+.Calc-key {
+  color: white;
+  font-weight: bold;
+  background-color: #444;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Calc-key.operand {
+  background-color: orange;
+}
+
+.Calc-key.operator {
+  background-color: #444;
+}

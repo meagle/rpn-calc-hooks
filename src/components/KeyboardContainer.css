@@ -1,0 +1,19 @@
+.KeyboardContainer-keys-container {
+  display: grid;
+  grid-template-columns: 405px 300px;
+  width: 708px;
+  background-color: gray;
+}
+
+.KeyboardContainer-operator-keys-container {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-gap: 1px;
+}
+
+.KeyboardContainer-operand-keys-container {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: 100px 100px 100px 100px;
+  grid-gap: 1px;
+}
