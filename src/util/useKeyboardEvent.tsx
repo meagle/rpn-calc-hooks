@@ -1,9 +1,10 @@
 import {useEffect} from 'react';
+import {ALL_KEYS} from './keys';
 
 const useKeyboardEvent = (key: string, callback: () => void) => {
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
-      if (event.key === key) {
+      if (event.key === ALL_KEYS[key]['js-key']) {
         callback();
       }
     };

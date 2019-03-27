@@ -1,21 +1,29 @@
-import reducers, {reduceInput, reduceStack} from './reducers';
+import reducer from './reducers';
 import {Stack, CalcState} from '../types';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
 
 test('User can add new input', () => {
   const keyId = '2';
-  const expected: string = '2';
-  const actual: string = reduceInput(undefined, {
+  const initialState: CalcState = {stack: [], input: ''};
+  const expected: CalcState = {stack: [], input: '2'};
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_NUMERIC_INPUT',
     keyId,
   });
   expect(actual).toEqual(expected);
 });
 
-test('User can add decimal numbers', () => {
+test('User can add decimal numbers to user input', () => {
   const keyId = '4';
-  const expected: string = '3.14';
-  const actual: string = reduceInput('3.1', {
+  const initialState: CalcState = {
+    stack: [],
+    input: '3.1',
+  };
+  const expected: CalcState = {
+    stack: [],
+    input: '3.14',
+  };
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_NUMERIC_INPUT',
     keyId,
   });
@@ -23,16 +31,23 @@ test('User can add decimal numbers', () => {
 });
 
 test('Stack can add new input as a new stack item', () => {
-  const expected: Stack = [3];
+  const initialState: CalcState = {
+    input: '3',
+    stack: [],
+  };
 
-  const actual: Stack = reduceStack([], {
-    type: 'ADD_USER_INPUT_TO_STACK',
-    userInput: '3',
+  const expected: CalcState = {
+    stack: [3],
+    input: '',
+  };
+
+  const actual: CalcState = reducer(initialState, {
+    type: 'ADD_TO_STACK',
   });
 
   expect(actual).toEqual(expected);
 
-  const state = reducers(
+  const state = reducer(
     {
       stack: [3],
       input: '5',
@@ -47,46 +62,52 @@ test('Stack can add new input as a new stack item', () => {
 });
 
 test('Remove first stack item when there is no user Input', () => {
-  const stackExpected: Stack = [2, 3, 4, 5];
+  const expected: CalcState = {input: '', stack: [2, 3, 4, 5]};
 
-  const stackAcutal: Stack = reduceStack([1, 2, 3, 4, 5], {
-    type: 'REMOVE_FROM_STACK',
-    userInput: '',
-  });
+  const initialState: CalcState = {
+    input: '',
+    stack: [1, 2, 3, 4, 5],
+  };
 
-  expect(stackAcutal).toEqual(stackExpected);
-
-  const currentInputExpected = '';
-  const currentInputActual = reduceInput('', {
+  const stackAcutal: CalcState = reducer(initialState, {
     type: 'REMOVE_FROM_STACK',
   });
 
-  expect(currentInputActual).toBe(currentInputExpected);
+  expect(stackAcutal).toEqual(expected);
 });
 
 test('Remove current stack character when there is user Input', () => {
-  const expected: Stack = [1, 2, 3, 4, 5];
+  const initialState: CalcState = {
+    input: '3.14',
+    stack: [1, 2, 3, 4, 5],
+  };
 
-  const actual: Stack = reduceStack([1, 2, 3, 4, 5], {
+  const expected: CalcState = {
+    input: '3.1',
+    stack: [1, 2, 3, 4, 5],
+  };
+
+  const actual: CalcState = reducer(initialState, {
     type: 'REMOVE_FROM_STACK',
     userInput: '3.14',
   });
 
   expect(actual).toEqual(expected);
-
-  const currentInputExpected = '3.1';
-  const currentInputActual = reduceInput('3.14', {
-    type: 'REMOVE_FROM_STACK',
-    userInput: '3.14',
-  });
-  expect(currentInputActual).toBe(currentInputExpected);
 });
 
 test('Stack can run a unary operation on first element on stack', () => {
-  const keyId = 'sqrt';
-  const expected: Stack = [8];
+  const keyId = 'q';
+  const expected: CalcState = {
+    stack: [8],
+    input: '',
+  };
 
-  const actual: Stack = reduceStack([64], {
+  const initialState: CalcState = {
+    stack: [64],
+    input: '',
+  };
+
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_OPERATOR_INPUT',
     keyId,
   });
@@ -95,46 +116,57 @@ test('Stack can run a unary operation on first element on stack', () => {
 });
 
 test('Stack can run a unary operation on current input', () => {
-  const keyId = 'sqrt';
-  const expected: Stack = [10, 8];
-  const expectedInput = '';
+  const keyId = 'q';
 
-  const actual: Stack = reduceStack([8], {
+  const initialState: CalcState = {
+    stack: [8],
+    input: '100',
+  };
+
+  const expected: CalcState = {
+    stack: [10, 8],
+    input: '',
+  };
+
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_OPERATOR_INPUT',
     keyId,
-    userInput: '100',
-  });
-  const actualInput: string = reduceInput('100', {
-    type: 'USER_OPERATOR_INPUT',
-    keyId,
-    userInput: '100',
   });
 
   expect(actual).toEqual(expected);
-  expect(actualInput).toEqual(expectedInput);
 });
 
-test('Stack can run an operation with arity 2 on first element on stack', () => {
-  const keyId = 'add';
-  const expected: Stack = [12, 5];
+test('Stack can run an operation with arity 2 on first two elements on stack', () => {
+  const keyId = '+';
 
-  const actual: Stack = reduceStack([3, 9, 5], {
+  const initialState: CalcState = {
+    input: '',
+    stack: [3, 9, 5],
+  };
+
+  const expected: CalcState = {stack: [12, 5], input: ''};
+
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_OPERATOR_INPUT',
     keyId,
-    userInput: '',
   });
 
   expect(actual).toEqual(expected);
 });
 
 test('Stack can run an operation with arity 2 on current input', () => {
-  const keyId = 'add';
-  const expected: Stack = [6, 9, 5];
+  const keyId = '+';
 
-  const actual: Stack = reduceStack([3, 9, 5], {
+  const initialState: CalcState = {
+    input: '3',
+    stack: [3, 9, 5],
+  };
+
+  const expected: CalcState = {stack: [6, 9, 5], input: ''};
+
+  const actual: CalcState = reducer(initialState, {
     type: 'USER_OPERATOR_INPUT',
     keyId,
-    userInput: '3',
   });
 
   expect(actual).toEqual(expected);

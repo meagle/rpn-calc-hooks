@@ -3,6 +3,7 @@ import StackItem from './StackItem';
 // import Input from './Input';
 import './Results.css';
 import {CalculatorContext} from '../util/context';
+import UserInput from './UserInput';
 
 const Results = () => {
   const context = useContext(CalculatorContext);
@@ -16,11 +17,12 @@ const Results = () => {
 
   return (
     <div className="Result-panel" ref={resultPanelEl}>
-      <ul className="list-group">
+      <ul>
         {stack.reverse().map((item, idx) => (
           <StackItem key={idx} item={item} />
         ))}
         {/* <Input input={input} /> */}
+        <UserInput />
       </ul>
     </div>
   );

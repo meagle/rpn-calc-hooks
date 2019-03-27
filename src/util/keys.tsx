@@ -24,7 +24,7 @@ const generateOperands = (): {[key: string]: OperandCalcKey} => {
 export const OPERAND_KEYS: {[key: string]: OperandCalcKey} = generateOperands();
 
 export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
-  enter: {
+  Enter: {
     type: 'OPERATOR',
     arity: 0,
     keyValue: 'Enter',
@@ -32,7 +32,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: a => a,
     'js-key': 'Enter',
   },
-  backspace: {
+  Backspace: {
     type: 'OPERATOR',
     arity: 0,
     keyValue: 'Backspace',
@@ -40,7 +40,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: a => a,
     'js-key': 'Backspace',
   },
-  add: {
+  '+': {
     type: 'OPERATOR',
     arity: 2,
     keyValue: '+',
@@ -48,7 +48,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (a, b) => a + b,
     'js-key': '+',
   },
-  sub: {
+  '-': {
     type: 'OPERATOR',
     arity: 2,
     keyValue: '-',
@@ -56,7 +56,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (a, b) => b - a,
     'js-key': '-',
   },
-  mult: {
+  '*': {
     type: 'OPERATOR',
     arity: 2,
     keyValue: '*',
@@ -64,7 +64,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (a, b) => a * b,
     'js-key': '*',
   },
-  div: {
+  '/': {
     type: 'OPERATOR',
     arity: 2,
     keyValue: '/',
@@ -72,7 +72,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (a, b) => b / a,
     'js-key': '/',
   },
-  sqrt: {
+  q: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'q',
@@ -80,7 +80,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: n => Math.sqrt(n),
     'js-key': 'q',
   },
-  ex: {
+  e: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'e',
@@ -88,7 +88,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: n => Math.pow(Math.E, n),
     'js-key': 'e',
   },
-  tenx: {
+  x: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 't',
@@ -96,7 +96,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: n => Math.pow(10, n),
     'js-key': 't',
   },
-  yx: {
+  y: {
     type: 'OPERATOR',
     arity: 2,
     keyValue: 'y',
@@ -104,7 +104,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: (x, y) => Math.pow(y, x),
     'js-key': 'y',
   },
-  reciprocal: {
+  o: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'o',
@@ -112,7 +112,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: x => 1 / x,
     'js-key': 'o',
   },
-  chs: {
+  C: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'C',
@@ -120,7 +120,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     fn: x => x * -1,
     'js-key': 'C',
   },
-  sin: {
+  s: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 's',
@@ -132,7 +132,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
       toRadians
     ),
   },
-  cos: {
+  c: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'c',
@@ -144,7 +144,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
       toRadians
     ),
   },
-  tan: {
+  t: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 't',

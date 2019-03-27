@@ -46,31 +46,13 @@ export type AddToStackAction = {
   type: 'ADD_TO_STACK';
 };
 
-export type AddUserInputToStackAction = {
-  type: 'ADD_USER_INPUT_TO_STACK';
-  userInput: string;
-};
-
 export type RemoveStackAction = {
   type: 'REMOVE_FROM_STACK';
   userInput?: string;
 };
 
-export type RegisterKeyAction = {
-  type: 'REGISTER_KEY';
-  key: CalcKey;
-};
-
-export type UnregisterKeyAction = {
-  type: 'UNREGISTER_KEY';
-  keyLabel: string;
-};
-
 export type Action =
   | AddToStackAction
-  | AddUserInputToStackAction
   | RemoveStackAction
-  | RegisterKeyAction
-  | UnregisterKeyAction
-  | UserNumericInputAction
-  | UserExpressionInputAction;
+  | UserExpressionInputAction
+  | UserNumericInputAction;

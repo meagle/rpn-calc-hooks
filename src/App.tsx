@@ -28,7 +28,7 @@ const App = (props: Props) => {
   // window
 
   return (
-    <div>
+    <div style={{margin: '0 25px'}}>
       <CalculatorContext.Provider value={value}>
         {props.children}
       </CalculatorContext.Provider>

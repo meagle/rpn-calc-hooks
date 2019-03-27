@@ -8,13 +8,13 @@ import {
 import App from '../App';
 import CalculatorKey from './CalculatorKey';
 import {CalculatorContext} from '../util/context';
-import {OPERATOR_KEYS, OPERAND_KEYS} from '../util/keys';
+import {OPERAND_KEYS} from '../util/keys';
 import {CalcContext} from '../types';
 
 afterEach(cleanup);
 
 test('Results renders', async () => {
-  const keyId = 'add';
+  const keyId = '+';
 
   const {getByText} = render(<CalculatorKey keyId={keyId} />);
   expect(getByText(/^\+/));
@@ -22,7 +22,6 @@ test('Results renders', async () => {
 
 test('Click calculator key', async () => {
   const keyId = '1';
-  const key = OPERAND_KEYS[keyId];
 
   const tree = (
     <App>
