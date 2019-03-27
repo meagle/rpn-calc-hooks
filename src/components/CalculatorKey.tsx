@@ -36,6 +36,7 @@ const CalculatorKey = ({keyId}: Props) => {
   const keyStyle = classnames({
     'Calc-key': true,
     [`${keyType.toLowerCase()}`]: true,
+    enter: keyId === 'Enter',
   });
 
   return (

@@ -12,7 +12,6 @@ test('Results renders', () => {
         state: {
           stack: [111, 222, 333],
           input: '2',
-          keys: {},
         },
         dispatch: jest.fn(),
       }}

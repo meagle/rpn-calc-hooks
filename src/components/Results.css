@@ -1,12 +1,12 @@
 .Result-panel {
   height: 225px;
-  width: 700px;
+  width: 708px;
   padding: 0 5px 0 0;
   overflow-y: scroll;
 }
 
 .Result-panel>ul {
-  padding: 0;
+  padding: 170px 0 0 0;
 }
 
 .Result-item {

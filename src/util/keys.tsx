@@ -1,6 +1,8 @@
 import {CalcKey, OperandCalcKey, OperatorCalcKey} from '../types';
 import {compose} from 'redux';
 
+const firstElement = (x: Array<number>) => x[0];
+
 const toRadians = (angle: number) => angle * (Math.PI / 180);
 
 const round = (x: number) => Math.round(x * 1000000) / 1000000;
@@ -29,7 +31,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 0,
     keyValue: 'Enter',
     keyLabel: 'Enter',
-    fn: a => a,
+    fn: (x: Array<number>): Array<number> => x,
     'js-key': 'Enter',
   },
   Backspace: {
@@ -37,7 +39,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 0,
     keyValue: 'Backspace',
     keyLabel: 'DEL',
-    fn: a => a,
+    fn: (x: Array<number>): Array<number> => x,
     'js-key': 'Backspace',
   },
   '+': {
@@ -45,7 +47,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 2,
     keyValue: '+',
     keyLabel: '+',
-    fn: (a, b) => a + b,
+    fn: (x: Array<number>) => [x[0] + x[1], ...x.slice(2)],
     'js-key': '+',
   },
   '-': {
@@ -53,7 +55,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 2,
     keyValue: '-',
     keyLabel: '-',
-    fn: (a, b) => b - a,
+    fn: (x: Array<number>) => [x[1] - x[0], ...x.slice(2)],
     'js-key': '-',
   },
   '*': {
@@ -61,7 +63,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 2,
     keyValue: '*',
     keyLabel: '*',
-    fn: (a, b) => a * b,
+    fn: (x: Array<number>) => [x[0] * x[1], ...x.slice(2)],
     'js-key': '*',
   },
   '/': {
@@ -69,15 +71,15 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 2,
     keyValue: '/',
     keyLabel: '/',
-    fn: (a, b) => b / a,
+    fn: (x: Array<number>) => [x[1] / x[0], ...x.slice(2)],
     'js-key': '/',
   },
   q: {
     type: 'OPERATOR',
     arity: 1,
     keyValue: 'q',
-    keyLabel: 'sqrt',
-    fn: n => Math.sqrt(n),
+    keyLabel: 'SQRT',
+    fn: (x: Array<number>) => [Math.sqrt(x[0]), ...x.slice(1)],
     'js-key': 'q',
   },
   e: {
@@ -85,7 +87,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 'e',
     keyLabel: 'e^x',
-    fn: n => Math.pow(Math.E, n),
+    fn: (x: Array<number>) => [Math.pow(Math.E, x[0]), ...x.slice(1)],
     'js-key': 'e',
   },
   x: {
@@ -93,7 +95,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 't',
     keyLabel: '10^x',
-    fn: n => Math.pow(10, n),
+    fn: (x: Array<number>) => [Math.pow(10, x[0]), ...x.slice(1)],
     'js-key': 't',
   },
   y: {
@@ -101,7 +103,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 2,
     keyValue: 'y',
     keyLabel: 'y^x',
-    fn: (x, y) => Math.pow(y, x),
+    fn: (x: Array<number>) => [Math.pow(x[1], x[0]), ...x.slice(2)],
     'js-key': 'y',
   },
   o: {
@@ -109,7 +111,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 'o',
     keyLabel: '1/x',
-    fn: x => 1 / x,
+    fn: (x: Array<number>) => [1 / x[0], ...x.slice(1)],
     'js-key': 'o',
   },
   C: {
@@ -117,7 +119,7 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     arity: 1,
     keyValue: 'C',
     keyLabel: 'CHS',
-    fn: x => x * -1,
+    fn: (x: Array<number>) => [x[0] * -1, ...x.slice(1)],
     'js-key': 'C',
   },
   s: {
@@ -126,11 +128,15 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 's',
     keyLabel: 'SIN',
     'js-key': 's',
-    fn: compose(
-      round,
-      Math.sin,
-      toRadians
-    ),
+    fn: (x: Array<number>) => [
+      compose(
+        round,
+        Math.sin,
+        toRadians,
+        firstElement
+      )(x),
+      ...x.slice(1),
+    ],
   },
   c: {
     type: 'OPERATOR',
@@ -138,11 +144,15 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 'c',
     keyLabel: 'COS',
     'js-key': 'c',
-    fn: compose(
-      round,
-      Math.cos,
-      toRadians
-    ),
+    fn: (x: Array<number>) => [
+      compose(
+        round,
+        Math.cos,
+        toRadians,
+        firstElement
+      )(x),
+      ...x.slice(1),
+    ],
   },
   t: {
     type: 'OPERATOR',
@@ -150,11 +160,35 @@ export const OPERATOR_KEYS: {[key: string]: OperatorCalcKey} = {
     keyValue: 't',
     keyLabel: 'TAN',
     'js-key': 't',
-    fn: compose(
-      round,
-      Math.tan,
-      toRadians
-    ),
+    fn: (x: Array<number>) => [
+      compose(
+        round,
+        Math.tan,
+        toRadians,
+        firstElement
+      )(x),
+      ...x.slice(1),
+    ],
+  },
+  S: {
+    type: 'OPERATOR',
+    arity: 3,
+    keyValue: 'S',
+    keyLabel: 'SWAP',
+    'js-key': 'S',
+    fn: (stack: Array<number>) => {
+      return [stack[1], stack[0], ...stack.slice(2, stack.length)];
+    },
+  },
+  R: {
+    type: 'OPERATOR',
+    arity: 3,
+    keyValue: 'R',
+    keyLabel: 'ROLL',
+    'js-key': 'R',
+    fn: (stack: Array<number>) => {
+      return [...stack.slice(1, stack.length), stack[0]];
+    },
   },
 };
 

@@ -10,10 +10,12 @@ export type OperandCalcKey = Key & {
   type: 'OPERAND';
 };
 
+type CalcFunction = (x: Array<number>) => Array<number>;
+
 export type OperatorCalcKey = Key & {
   type: 'OPERATOR';
   arity: number;
-  fn: (...args: Array<number>) => number;
+  fn: CalcFunction;
 };
 
 export type CalcKey = OperandCalcKey | OperatorCalcKey;

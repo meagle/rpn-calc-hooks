@@ -31,23 +31,11 @@ export const reducer = (
     case 'USER_OPERATOR_INPUT':
       const {keyId} = action;
       const calcKey = OPERATOR_KEYS[keyId];
-      if (calcKey.arity === 1 && input) {
-        stack = [calcKey.fn(Number(input)), ...stack];
+      if (input) {
+        stack = calcKey.fn([Number(input), ...stack]);
         input = '';
-      } else if (calcKey.arity === 1) {
-        stack = [calcKey.fn(stack[0]), ...stack.slice(1, stack.length)];
-      } else if (calcKey.arity === 2 && stack.length > 0 && input) {
-        stack = [
-          calcKey.fn(Number(input), stack[0]),
-          ...stack.slice(1, stack.length),
-        ];
-        input = '';
-      } else if (calcKey.arity === 2 && stack.length > 1) {
-        const firstItemOnStack = stack.shift()!;
-        stack = [
-          calcKey.fn(firstItemOnStack, stack[0]), // TODO: don't know if I like this TS override but can investigate later
-          ...stack.slice(1, stack.length),
-        ];
+      } else {
+        stack = calcKey.fn(stack);
       }
       return {input, stack};
     default:

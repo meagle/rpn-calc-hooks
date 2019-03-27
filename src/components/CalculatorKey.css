@@ -15,3 +15,8 @@
 .Calc-key.operator {
   background-color: #444;
 }
+
+.Calc-key.operator.enter {
+  color: #444;
+  background-color: lightgray;
+}
