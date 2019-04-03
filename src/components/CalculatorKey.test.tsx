@@ -8,7 +8,6 @@ import {
 import App from '../App';
 import CalculatorKey from './CalculatorKey';
 import {CalculatorContext} from '../util/context';
-import {OPERAND_KEYS} from '../util/keys';
 import {CalcContext} from '../types';
 
 afterEach(cleanup);

@@ -1,5 +1,6 @@
-import {Action, Stack, CalcState} from '../types';
+import {Action, CalcState} from '../types';
 import {OPERAND_KEYS, OPERATOR_KEYS} from './keys';
+import padLeft from './padLeft';
 
 const initialState: CalcState = {
   input: '',
@@ -14,7 +15,10 @@ export const reducer = (
   switch (action.type) {
     case 'USER_NUMERIC_INPUT':
       const inputKey = OPERAND_KEYS[action.keyId];
-      return {input: `${input}${inputKey.keyValue}`, stack};
+      return {
+        input: Number(`${input}${inputKey.keyValue}`).toString(),
+        stack,
+      };
     case 'ADD_TO_STACK':
       return {
         stack: [Number(input), ...stack.slice(0, stack.length)],
@@ -35,7 +39,7 @@ export const reducer = (
         stack = calcKey.fn([Number(input), ...stack]);
         input = '';
       } else {
-        stack = calcKey.fn(stack);
+        stack = calcKey.fn(padLeft(stack, 0, calcKey.arity));
       }
       return {input, stack};
     default:

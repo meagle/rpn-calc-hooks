@@ -30,6 +30,35 @@ test('User can add decimal numbers to user input', () => {
   expect(actual).toEqual(expected);
 });
 
+test('User cannot add leading zeros to user input', () => {
+  const keyId = '0';
+  const initialState: CalcState = {
+    stack: [],
+    input: '',
+  };
+  const expected: CalcState = {
+    stack: [],
+    input: '0',
+  };
+  let actual: CalcState = reducer(initialState, {
+    type: 'USER_NUMERIC_INPUT',
+    keyId,
+  });
+
+  actual = reducer(
+    {
+      stack: [],
+      input: '0',
+    },
+    {
+      type: 'USER_NUMERIC_INPUT',
+      keyId,
+    }
+  );
+
+  expect(actual).toEqual(expected);
+});
+
 test('Stack can add new input as a new stack item', () => {
   const initialState: CalcState = {
     input: '3',
@@ -104,6 +133,26 @@ test('Stack can run a unary operation on first element on stack', () => {
 
   const initialState: CalcState = {
     stack: [64],
+    input: '',
+  };
+
+  const actual: CalcState = reducer(initialState, {
+    type: 'USER_OPERATOR_INPUT',
+    keyId,
+  });
+
+  expect(actual).toEqual(expected);
+});
+
+test('Stack can run a unary operation with nothing on the stack', () => {
+  const keyId = 'q';
+  const expected: CalcState = {
+    stack: [0],
+    input: '',
+  };
+
+  const initialState: CalcState = {
+    stack: [],
     input: '',
   };
 

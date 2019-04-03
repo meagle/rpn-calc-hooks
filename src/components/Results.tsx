@@ -11,8 +11,9 @@ const Results = () => {
   const stack = [...context.state.stack];
 
   useEffect(() => {
-    if (resultPanelEl.current !== null)
+    if (resultPanelEl.current !== null) {
       resultPanelEl.current.scrollTop = resultPanelEl.current.scrollHeight;
+    }
   }, [context.state.stack]);
 
   return (
@@ -21,17 +22,10 @@ const Results = () => {
         {stack.reverse().map((item, idx) => (
           <StackItem key={idx} item={item} />
         ))}
-        {/* <Input input={input} /> */}
         <UserInput />
       </ul>
     </div>
   );
 };
 
-// const mapStateToProps = (state: State) => ({
-//   stack: state.stack.present,
-//   input: state.input,
-// });
-
-// export default connect(mapStateToProps)(Results);
 export default Results;
