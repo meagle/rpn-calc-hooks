@@ -15,8 +15,21 @@ export const reducer = (
   switch (action.type) {
     case 'USER_NUMERIC_INPUT':
       const inputKey = OPERAND_KEYS[action.keyId];
+
+      if (inputKey.keyValue === '.' && input.indexOf('.') === -1) {
+        return {
+          input: `${input}${inputKey.keyValue}`,
+          stack,
+        };
+      } else if (inputKey.keyValue !== '.') {
+        return {
+          input: Number(`${input}${inputKey.keyValue}`).toString(),
+          stack,
+        };
+      }
+
       return {
-        input: Number(`${input}${inputKey.keyValue}`).toString(),
+        input,
         stack,
       };
     case 'ADD_TO_STACK':

@@ -14,14 +14,31 @@ test('User can add new input', () => {
 });
 
 test('User can add decimal numbers to user input', () => {
-  const keyId = '4';
+  const keyId = '.';
   const initialState: CalcState = {
     stack: [],
-    input: '3.1',
+    input: '3',
   };
   const expected: CalcState = {
     stack: [],
-    input: '3.14',
+    input: '3.',
+  };
+  const actual: CalcState = reducer(initialState, {
+    type: 'USER_NUMERIC_INPUT',
+    keyId,
+  });
+  expect(actual).toEqual(expected);
+});
+
+test('User cannot add more than one decimalto user input', () => {
+  const keyId = '.';
+  const initialState: CalcState = {
+    stack: [],
+    input: '3.',
+  };
+  const expected: CalcState = {
+    stack: [],
+    input: '3.',
   };
   const actual: CalcState = reducer(initialState, {
     type: 'USER_NUMERIC_INPUT',
