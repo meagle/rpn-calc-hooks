@@ -48,11 +48,13 @@ export const reducer = (
     case 'USER_OPERATOR_INPUT':
       const {keyId} = action;
       const calcKey = OPERATOR_KEYS[keyId];
-      if (input) {
+      if (input && calcKey.arity < 3) {
         stack = calcKey.fn([Number(input), ...stack]);
         input = '';
-      } else {
+      } else if (calcKey.arity < 3) {
         stack = calcKey.fn(padLeft(stack, 0, calcKey.arity));
+      } else if (stack.length > 1) {
+        stack = calcKey.fn(stack);
       }
       return {input, stack};
     default:
