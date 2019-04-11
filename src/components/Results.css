@@ -1,9 +1,7 @@
 .Result-panel {
-  /* height: 225px; */
   width: 706px;
   padding: 0;
   border: 1px solid #ccc;
-  /* overflow-y: scroll; */
   overflow: hidden;
 }
 
@@ -17,19 +15,13 @@
 
 
 .Result-item {
-  /* text-align: right;
-  list-style: none;
-  margin: 5px 0;
-  padding: 2px 5px 2px 0; */
   border-bottom: solid 1px #eee;
   transform: rotate(180deg);
-  /* direction: ltr; */
   padding: 5px;
 }
 
 .Result-item.input {
   background-color: #eee;
-  /* padding: 5px; */
   transform: none;
   direction: rtl;
 }
