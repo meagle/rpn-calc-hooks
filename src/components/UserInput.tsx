@@ -5,7 +5,7 @@ import './Results.css';
 const UserInput = () => {
   const {state} = useContext(CalculatorContext);
   return (
-    <li className="Result-item input">{state.input ? state.input : '0'}</li>
+    <div className="Result-item input">{state.input ? state.input : '0'}</div>
   );
 };
 

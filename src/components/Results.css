@@ -1,22 +1,35 @@
 .Result-panel {
-  height: 225px;
-  width: 708px;
-  padding: 0 5px 0 0;
-  overflow-y: scroll;
+  /* height: 225px; */
+  width: 706px;
+  padding: 0;
+  border: 1px solid #ccc;
+  /* overflow-y: scroll; */
+  overflow: hidden;
 }
 
-.Result-panel>ul {
-  padding: 170px 0 0 0;
+.Result-container {
+  height: 200px;
+  margin: 0 auto;
+  overflow: auto;
+  transform: rotate(180deg);
+  direction: rtl;
 }
+
 
 .Result-item {
-  text-align: right;
+  /* text-align: right;
   list-style: none;
   margin: 5px 0;
-  padding: 2px 5px 2px 0;
+  padding: 2px 5px 2px 0; */
+  border-bottom: solid 1px #eee;
+  transform: rotate(180deg);
+  /* direction: ltr; */
+  padding: 5px;
 }
 
 .Result-item.input {
-  background-color: lightgrey;
-  padding: 5px;
+  background-color: #eee;
+  /* padding: 5px; */
+  transform: none;
+  direction: rtl;
 }

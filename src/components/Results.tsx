@@ -18,12 +18,12 @@ const Results = () => {
 
   return (
     <div className="Result-panel" ref={resultPanelEl}>
-      <ul>
-        {stack.reverse().map((item, idx) => (
+      <div className="Result-container">
+        {stack.map((item, idx) => (
           <StackItem key={idx} item={item} />
         ))}
-        <UserInput />
-      </ul>
+      </div>
+      <UserInput />
     </div>
   );
 };
