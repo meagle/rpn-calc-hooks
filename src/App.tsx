@@ -20,7 +20,7 @@ const App = (props: Props) => {
   }, [state, dispatch]);
 
   return (
-    <div style={{margin: '0 25px'}}>
+    <div style={{margin: '25px'}}>
       <CalculatorContext.Provider value={value}>
         {props.children}
       </CalculatorContext.Provider>

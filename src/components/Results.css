@@ -6,7 +6,6 @@
   display: grid;
   grid-template: 200px 29px/1fr;
   align-items: end;
-
 }
 
 .Result-container {
@@ -18,8 +17,9 @@
 
 
 .Result-item {
-  border-bottom: solid 1px #eee;
+  border-top: solid 1px #eee;
   padding: 5px;
+  text-align: right;
 }
 
 .Result-item.input {
