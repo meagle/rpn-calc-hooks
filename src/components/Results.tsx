@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import StackItem from './StackItem';
-// import Input from './Input';
 import './Results.css';
 import {CalculatorContext} from '../util/context';
 import UserInput from './UserInput';
@@ -17,9 +16,9 @@ const Results = () => {
   }, [context.state.stack]);
 
   return (
-    <div className="Result-panel" ref={resultPanelEl}>
-      <div className="Result-container">
-        {stack.map((item, idx) => (
+    <div className="Result-panel">
+      <div className="Result-container" ref={resultPanelEl}>
+        {stack.reverse().map((item, idx) => (
           <StackItem key={idx} item={item} />
         ))}
       </div>

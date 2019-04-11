@@ -3,25 +3,25 @@
   padding: 0;
   border: 1px solid #ccc;
   overflow: hidden;
+  display: grid;
+  grid-template: 200px 29px/1fr;
+  align-items: end;
+
 }
 
 .Result-container {
-  height: 200px;
+  max-height: 200px;
+  width: 100%;
   margin: 0 auto;
   overflow: auto;
-  transform: rotate(180deg);
-  direction: rtl;
 }
 
 
 .Result-item {
   border-bottom: solid 1px #eee;
-  transform: rotate(180deg);
   padding: 5px;
 }
 
 .Result-item.input {
   background-color: #eee;
-  transform: none;
-  direction: rtl;
 }
