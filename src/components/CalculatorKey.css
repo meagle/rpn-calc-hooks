@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .Calc-key.operand {
@@ -14,6 +15,14 @@
 
 .Calc-key.operator {
   background-color: #444;
+}
+
+.Calc-key.operand.key-pressed {
+  background-color: #999;
+}
+
+.Calc-key.operator.key-pressed {
+  background-color: #999;
 }
 
 .Calc-key.operator.enter {

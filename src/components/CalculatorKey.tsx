@@ -1,4 +1,4 @@
-import React, {useContext, useCallback} from 'react';
+import React, {useState, useContext, useCallback} from 'react';
 import classnames from 'classnames';
 import {CalculatorContext} from '../util/context';
 import {sendKey, addInputToStack, removeFromStack} from '../util/actions';
@@ -13,6 +13,7 @@ type Props = {
 const CalculatorKey = ({keyId}: Props) => {
   const {dispatch} = useContext(CalculatorContext);
   const {type: keyType, keyLabel} = ALL_KEYS[keyId];
+  const [keyPressed, setKeyPressed] = useState(false);
 
   const keyHandler = (keyId: string) => () => {
     if (keyId === 'Enter') {
@@ -33,14 +34,24 @@ const CalculatorKey = ({keyId}: Props) => {
     memoizedHandleKeydown();
   };
 
+  const handleToggleKeyDown = () => {
+    setKeyPressed(!keyPressed);
+  };
+
   const keyStyle = classnames({
     'Calc-key': true,
     [`${keyType.toLowerCase()}`]: true,
     enter: keyId === 'Enter',
+    'key-pressed': keyPressed,
   });
 
   return (
-    <div className={keyStyle} onClick={handleClick}>
+    <div
+      className={keyStyle}
+      onClick={handleClick}
+      onMouseDown={handleToggleKeyDown}
+      onMouseUp={handleToggleKeyDown}
+    >
       <div>{keyLabel}</div>
     </div>
   );
